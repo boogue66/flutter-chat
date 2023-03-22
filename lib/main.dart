@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chat Demo',
-      initialRoute: 'login',
+      initialRoute: 'chat',
       routes: appRoutes,
       /* theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
