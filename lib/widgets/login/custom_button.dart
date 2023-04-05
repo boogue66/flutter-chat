@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
 
   final String titulo;
   final Function onPressed;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -16,12 +17,17 @@ class CustomButton extends StatelessWidget {
         elevation: 3,
         backgroundColor: Colors.blue,
         minimumSize: const Size(300, 60),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       ),
-      onPressed: onPressed(),
-      child: Text(
-        titulo,
-        style: const TextStyle(fontSize: 20, color: Colors.white),
+      onPressed: () => onPressed(),
+      child: SizedBox(
+        width: double.infinity,
+        height: 55,
+        child: Center(
+          child: Text(
+            titulo,
+            style: const TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
       ),
     );
   }

@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:chat/widgets/widgets.dart';
+import 'package:chat/services/auth_service.dart';
+import 'package:chat/helpers/mostrar_alerta.dart';
 
 class RegistroPage extends StatelessWidget {
   const RegistroPage({super.key});
@@ -45,6 +50,7 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -71,8 +77,21 @@ class __FormState extends State<_Form> {
             textController: passwordCtrl,
           ),
           CustomButton(
-            onPressed: () {},
-            titulo: 'Registrarse',
+            titulo: 'Crear cuenta',
+            onPressed: authService.autenticando
+                ? () => {}
+                : () async {
+                    final registroOk = await authService.registro(
+                      userCtrl.text.trim(),
+                      emailCtrl.text.trim(),
+                      passwordCtrl.text.trim(),
+                    );
+                    if (registroOk == true) {
+                      Navigator.pushReplacementNamed(context, 'usuarios');
+                    } else {
+                      mostrarAlerta(context, 'Registro incorrecto', registroOk);
+                    }
+                  },
           )
         ],
       ),
